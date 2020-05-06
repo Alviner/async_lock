@@ -15,7 +15,7 @@ async-lock
 
 
 .. image:: https://pyup.io/repos/github/alviner/async_lock/shield.svg
-     :target: https://pyup.io/repos/github/alviner/async_lock/
+     :target: https://pyup.io/repos/github/Alviner/async_lock/
      :alt: Updates
 
 

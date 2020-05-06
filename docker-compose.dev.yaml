@@ -4,8 +4,8 @@ services:
   postgresql:
     image: postgres:11-alpine
     environment:
-      POSTGRES_PASSWORD: guest
-      POSTGRES_USER: guest
+      POSTGRES_PASSWORD: pguser
+      POSTGRES_USER: pguser
       POSTGRES_DB: pgdb
     ports:
       - '127.0.0.1:5432:5432'

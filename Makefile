@@ -44,7 +44,7 @@ test: ## run tests quickly with the default Python
 	pytest -p no:warnings --cov async_lock --cov-report term-missing --doctest-modules -vv
 
 test-all: ## run tests on every Python version with tox
-	tox
+	tox -r
 
 coverage: ## check code coverage quickly with the default Python
 	coverage run --source async_lock -m pytest
@@ -71,3 +71,6 @@ dist: clean ## builds source and wheel package
 develop: clean ## setup development environment
 	python3.8 -m venv env
 	env/bin/pip install -Ue '.[develop]'
+
+format: ## run black formatter
+	black .

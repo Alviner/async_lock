@@ -10,7 +10,6 @@ class LockAcquireFailure(Exception):
 
 
 class AsyncLock(ABC):
-
     def __init__(self, name: str, *args, **kwargs):
         super(AsyncLock, self).__init__(*args, **kwargs)
         self._name = name

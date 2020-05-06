@@ -1,33 +1,33 @@
 import asyncio
 import os
 
-import pytest
 import aiopg
 import asyncpg
+import pytest
 
 from async_lock.base_lock import LockAcquireFailure
 from async_lock.pglock.aiopg import AioPgAdLocker
 from async_lock.pglock.asyncpg import AsyncPgAdLocker
 from async_lock.pglock.pg_base import LockMode
 
-DB_URL = os.environ.get('DB_URL', 'postgresql://pguser:pguser@localhost/pgdb')
+DB_URL = os.environ.get("DB_URL", "postgresql://pguser:pguser@localhost/pgdb")
 
 
 @pytest.fixture(params=[asyncpg, aiopg])
-async def pool(request):
+async def async_pool(request):
     pool_module = request.param
-    async with pool_module.create_pool(dsn=DB_URL) as pool:
-        yield pool
+    async with pool_module.create_pool(dsn=DB_URL) as _pool:
+        yield _pool
 
 
-@pytest.fixture
-def locker(pool):
+@pytest.fixture(params=[asyncpg, aiopg])
+def locker(async_pool):
     locker_cls = None
-    if isinstance(pool, aiopg.Pool):
+    if isinstance(async_pool, aiopg.Pool):
         locker_cls = AioPgAdLocker
-    elif isinstance(pool, asyncpg.pool.Pool):
+    elif isinstance(async_pool, asyncpg.pool.Pool):
         locker_cls = AsyncPgAdLocker
-    return locker_cls(pool=pool, app_name="awesome_project")
+    return locker_cls(pool=async_pool, app_name="awesome_project")
 
 
 @pytest.mark.parametrize("mode", [mode for mode in LockMode])
@@ -80,5 +80,3 @@ async def test_release_lock(locker, mode):
         assert await lock.acquire() is True
     finally:
         assert await lock.release() is True
-
-

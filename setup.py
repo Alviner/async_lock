@@ -47,6 +47,6 @@ setup(
     extras_require={'develop': load_requirements('requirements.dev.txt'),},
     test_suite='tests',
     url='https://github.com/alviner/async_lock',
-    version='0.0.1',
+    version='0.0.0',
     zip_safe=False,
 )

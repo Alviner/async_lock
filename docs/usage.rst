@@ -17,3 +17,16 @@ With aiopg::
         async with locker.lock("awesome_another_name"):
             ...
 
+
+With asyncpg::
+
+    import asyncpg
+    import async_lock
+    async with asyncpg.create_pool(dsn=dsn, minsize=2) as pool:
+        locker = async_lock.AsyncPgAdLocker(pool=pool, app_name="awesome_project")
+
+        async with locker.lock("awesome_one_name"):
+            ...
+
+        async with locker.lock("awesome_another_name"):
+            ...

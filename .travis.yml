@@ -6,7 +6,7 @@ install: pip install -U tox-travis
 services:
 - postgresql
 env:
-     = DB_URL=postgresql://postgres:@localhost
+- DB_URL=postgresql://postgres:@localhost
 script: make test-all
 deploy:
   provider: pypi

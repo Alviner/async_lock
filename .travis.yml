@@ -3,6 +3,7 @@ python:
 - 3.8
 - 3.7
 install: pip install -U tox-travis
+services: [postgresql]
 script: tox
 deploy:
   provider: pypi

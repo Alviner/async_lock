@@ -1,5 +1,8 @@
+import logging
 from abc import ABC, abstractmethod
 from typing import ClassVar
+
+log = logging.getLogger(__name__)
 
 
 class LockAcquireFailure(Exception):
@@ -13,16 +16,16 @@ class AsyncLock(ABC):
         self._name = name
 
     @abstractmethod
-    async def acquire(self):
+    async def acquire(self) -> bool:
         raise NotImplementedError
 
     @abstractmethod
-    async def release(self):
+    async def release(self) -> bool:
         raise NotImplementedError
 
     async def __aenter__(self):
         if not await self.acquire():
-            raise LockAcquireFailure("Already locked")
+            raise LockAcquireFailure
         return self
 
     async def __aexit__(self, exc_type, exc, tb):
@@ -45,5 +48,5 @@ class AsyncLocker:
 __all__ = (
     "LockAcquireFailure",
     "AsyncLock",
-    "AsyncLocker"
+    "AsyncLocker",
 )

@@ -41,7 +41,7 @@ lint: ## check style with flake8
 	flake8 async_lock tests
 
 test: ## run tests quickly with the default Python
-	pytest
+	pytest -p no:warnings --cov async_lock --cov-report term-missing --doctest-modules -vv
 
 test-all: ## run tests on every Python version with tox
 	tox
@@ -68,6 +68,6 @@ dist: clean ## builds source and wheel package
 	python setup.py bdist_wheel
 	ls -l dist
 
-develop: clean
+develop: clean ## setup development environment
 	python3.8 -m venv env
 	env/bin/pip install -Ue '.[develop]'

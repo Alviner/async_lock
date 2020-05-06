@@ -37,8 +37,9 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
-lint: ## check style with flake8
+lint: ## check style with flake8 and mypy
 	flake8 async_lock tests
+	mypy .
 
 test: ## run tests quickly with the default Python
 	pytest -p no:warnings --cov async_lock --cov-report term-missing --doctest-modules -vv

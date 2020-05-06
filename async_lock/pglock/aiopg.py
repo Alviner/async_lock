@@ -33,9 +33,8 @@ class AioPgAdLock(PgAdLock):
             self._LOCK_MODE[self._mode].format(self._name)
         )
         async for (is_acquired, *_) in self._curr:
-            if is_acquired is True or is_acquired == "":
-                return True
-            return False
+            return is_acquired is True or is_acquired == ""
+        return False
 
     async def _release(self) -> bool:
         await self._curr.execute(
@@ -43,6 +42,7 @@ class AioPgAdLock(PgAdLock):
         )
         async for (is_released, *_) in self._curr:
             return is_released is True or is_released == ""
+        return False
 
 
 class AioPgAdLocker(PgAdLocker):

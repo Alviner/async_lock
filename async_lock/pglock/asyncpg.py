@@ -1,6 +1,6 @@
 import logging
 
-from asyncpg import Connection
+from asyncpg.connection import Connection
 from asyncpg.transaction import Transaction
 
 from async_lock.pglock.pg_base import PgAdLock, PgAdLocker, AsyncContextExit

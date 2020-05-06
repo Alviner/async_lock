@@ -4,7 +4,7 @@ import logging
 from abc import ABC, abstractmethod
 from enum import Enum, unique
 from types import MappingProxyType
-
+from typing import Type
 
 from async_lock.base_lock import AsyncLocker, AsyncLock
 
@@ -83,8 +83,8 @@ class PgAdLock(AsyncLock, ABC):
             return is_released
 
 
-class PgAdLocker(AsyncLocker):
-    LOCK_CLASS = PgAdLock
+class PgAdLocker(AsyncLocker, ABC):
+    LOCK_CLASS: Type[PgAdLock]
 
     def __init__(self, pool, **kwargs):
         super(PgAdLocker, self).__init__(**kwargs)

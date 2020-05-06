@@ -11,14 +11,14 @@ with open("HISTORY.rst") as history_file:
     history = history_file.read()
 
 
-def load_requirements(fname) -> list:
+def load_requirements(fname: str) -> list:
     requirements = []
     with open(fname, "r") as fp:
         for req in parse_requirements(fp.read()):
-            name = req.name
+            name = req.name  # type: ignore
             if req.extras:
                 name += "[" + ",".join(req.extras) + "]"
-            requirements.append(name + str(req.specifier))
+            requirements.append(name + str(req.specifier))  # type: ignore
         return requirements
 
 
